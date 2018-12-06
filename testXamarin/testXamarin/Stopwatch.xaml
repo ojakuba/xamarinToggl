@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="testXamarin.Stopwatch" Title="Manage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Button 
+                BackgroundColor="DarkGreen" 
+                Text="Start" 
+                Clicked="Start_Clicked" 
+                AutomationId="StartBtn"  
+                HorizontalOptions="FillAndExpand"
+            />
+            
+            <Button 
+                BackgroundColor="DarkRed" 
+                Text="Stop" 
+                Clicked="Stop_Clicked"
+                AutomationId="StopBtn"
+                HorizontalOptions="FillAndExpand"
+            />
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
