@@ -5,10 +5,28 @@
              Title="New task">
     <ContentPage.Content>
         <StackLayout>
-            <ContentView 
-                Padding="5"
-                >
+            <ContentView Padding="5">
+                <Frame>
+                    <StackLayout x:Name="workspaceView">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1"/>
+                        </StackLayout.GestureRecognizers>
+                        <Label
+                            Text="Workspace"
+                            FontSize="22"
+                            VerticalOptions="StartAndExpand"
+                        />
+                        <Label 
+                            x:Name="selectedWorkspace"
+                            FontSize="16"
+                            VerticalOptions="CenterAndExpand"
+                            Text="{Binding WorkspaceName}"
+                        />
+                    </StackLayout>
+                </Frame>
+            </ContentView>
 
+            <ContentView Padding="5">
                 <Frame>
                     <StackLayout x:Name="projectView">
                         <StackLayout.GestureRecognizers>
@@ -28,9 +46,11 @@
                     </StackLayout>
                 </Frame>
             </ContentView>
+
             <Button 
-                    x:Name="okBtn"
-                        />
+                x:Name="okBtn"
+                Text="OK"
+                Clicked="okBtn_Clicked"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

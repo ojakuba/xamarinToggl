@@ -2,7 +2,7 @@
 {
     public class ProjectToggl
     {
-        public int? id { get; set; }
+        public int id { get; set; }
         public int? wid { get; set; }
         public int? cid { get; set; }
         public string name { get; set; }

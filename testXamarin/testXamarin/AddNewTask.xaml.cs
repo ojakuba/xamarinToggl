@@ -18,6 +18,7 @@ namespace testXamarin
             Context.ReloadProjects();
             Context.ActualRunningTask = new Models.TaskPresentationLayout();
             Context.ActualRunningTask.ProjectName = Context.Projects.FirstOrDefault().name;
+            Context.ActualRunningTask.WorkspaceName = Context.Workspaces.FirstOrDefault(w=>w.id == Context.UserData.default_wid).name;
             BindingContext = Context.ActualRunningTask;
             
             InitializeComponent ();
@@ -26,6 +27,17 @@ namespace testXamarin
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
             Navigation.PushAsync(new ProjectSelection(this));
+        }
+
+        private async void okBtn_Clicked(object sender, EventArgs e)
+        {
+            var pid = Context.Projects.First(p => p.name == Context.ActualRunningTask.ProjectName).id;
+            await Context.RestApi.StartTimeEntry(new TogglRestApi.Models.StartTimeEntry() { created_with = "JakubaProject", description = "TODO", pid = pid });
+        }
+
+        private async void TapGestureRecognizer_Tapped_1(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new WorkspaceSelection());
         }
     }
 }

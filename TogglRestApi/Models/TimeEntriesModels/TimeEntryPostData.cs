@@ -1,28 +1,17 @@
 ﻿namespace TogglRestApi.Models
 {
-    public class TimeEntryPostData
+    public class StartTimeEntryPostData
     {
-        public TimeEntries time_entry { get; set; }
+        public StartTimeEntry time_entry { get; set; }
 
-        public TimeEntryPostData()
+        public StartTimeEntryPostData()
         {
 
         }
 
-        public TimeEntryPostData(TimeEntries timeEntries)
+        public StartTimeEntryPostData(Models.StartTimeEntry timeEntry)
         {
-            time_entry = timeEntries;
-        }
-
-        public TimeEntryPostData(Models.StartTimeEntry timeEntry)
-        {
-            time_entry = new TimeEntries()
-            {
-                pid = timeEntry.pid,
-                decsription = timeEntry.description,
-                tags = timeEntry.tags,
-                created_with = timeEntry.created_with
-            };
+            time_entry = timeEntry;
         }
     }
 }

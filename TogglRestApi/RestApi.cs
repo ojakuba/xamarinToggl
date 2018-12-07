@@ -79,7 +79,7 @@ namespace TogglRestApi
 
         public async Task<TimeEntries> StartTimeEntry(StartTimeEntry timeEntries)
         {
-            return await BasicAuthorizationRequest<TimeEntries, TimeEntryPostData>("https://www.toggl.com/api/v8/time_entries/start", new TimeEntryPostData(timeEntries));
+            return await BasicAuthorizationRequest<TimeEntries, StartTimeEntryPostData>("https://www.toggl.com/api/v8/time_entries/start", new StartTimeEntryPostData(timeEntries));
         }
 
         public async Task<DataToggl<TimeEntries>> StopTimeEntry(int id)
