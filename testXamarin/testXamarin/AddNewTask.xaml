@@ -5,35 +5,31 @@
              Title="New task">
     <ContentPage.Content>
         <StackLayout>
-            <ListView 
-                x:Name="newTask"
-                ItemSelected="newTask_ItemSelected">
-
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell x:Name="projectCell"
-                                  AutomationId="projectCell">
-                            <ContentView Padding="5">
-                                <Frame>
-                                    <StackLayout>
-                                        <Label 
-                                            Text="Project"
-                                            FontSize="22"
-                                            VerticalOptions="StartAndExpand"
-                                            />
-                                        <Label 
-                                            x:Name="selectedProject"
-                                            FontSize="16"
-                                            VerticalOptions="CenterAndExpand"
-                                            Text="{Binding }"
-                                               />
-                                    </StackLayout>
-                                </Frame>
-                            </ContentView>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
+            <ListView>
+                
             </ListView>
+            <ContentView 
+                Padding="5"
+                >
+                <Frame>
+                    <StackLayout x:Name="projectView">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                        </StackLayout.GestureRecognizers>
+                        <Label
+                            Text="Project"
+                            FontSize="22"
+                            VerticalOptions="StartAndExpand"
+                        />
+                        <Label 
+                            x:Name="selectedProject"
+                            FontSize="16"
+                            VerticalOptions="CenterAndExpand"
+                            Text="{Binding ProjectName}"
+                        />
+                    </StackLayout>
+                </Frame>
+            </ContentView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

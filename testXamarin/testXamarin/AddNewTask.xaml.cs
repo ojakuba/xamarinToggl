@@ -19,19 +19,22 @@ namespace testXamarin
 		{
             _dateTime = dateTime;
             Context.ReloadWorkspaces();
+            Context.ActualRunningTask = new Models.TaskPresentationLayout();
+            Context.ActualRunningTask.ProjectName = "test";
             BindingContext = Context.ActualRunningTask;
-			InitializeComponent ();
+
+            //var tapGestureRecognizerProjectView = new TapGestureRecognizer();
+            //tapGestureRecognizerProjectView.Tapped += (s, e) => {
+            //    Navigation.PushAsync(new ProjectSelection(this));
+            //};
+
+
+            InitializeComponent ();
         }
 
-        private async void newTask_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
-            var selectedCell = (ViewCell)newTask.SelectedItem;
-            switch (selectedCell.AutomationId)
-            {
-                case "projectCell":
-                    await Navigation.PushAsync(new ProjectSelection(this));
-                    break;
-            }
+            Navigation.PushAsync(new ProjectSelection(this));
         }
     }
 }
