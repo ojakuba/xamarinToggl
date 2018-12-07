@@ -26,9 +26,9 @@ namespace testXamarin
                 var a = Context.RestApi.Login(new TogglRestApi.Models.User(email.Text, password.Text)).Result;
                 if (!String.IsNullOrEmpty(a.data.api_token))
                 {
+                    Context.UserData = a.data;
                     var navigationPageTracking = new NavigationPage(new Stopwatch());
                     navigationPageTracking.Title = "Tracking";
-                    //navigationPageTracking.Icon=
 
                     _app.MainPage = new TabbedPage
                     {

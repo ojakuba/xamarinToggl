@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using testXamarin.Store;
-using TogglRestApi.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace testXamarin
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class AddNewTask : ContentPage
 	{
         private DateTime _dateTime;
@@ -19,16 +15,11 @@ namespace testXamarin
 		{
             _dateTime = dateTime;
             Context.ReloadWorkspaces();
+            Context.ReloadProjects();
             Context.ActualRunningTask = new Models.TaskPresentationLayout();
-            Context.ActualRunningTask.ProjectName = "test";
+            Context.ActualRunningTask.ProjectName = Context.Projects.FirstOrDefault().name;
             BindingContext = Context.ActualRunningTask;
-
-            //var tapGestureRecognizerProjectView = new TapGestureRecognizer();
-            //tapGestureRecognizerProjectView.Tapped += (s, e) => {
-            //    Navigation.PushAsync(new ProjectSelection(this));
-            //};
-
-
+            
             InitializeComponent ();
         }
 
