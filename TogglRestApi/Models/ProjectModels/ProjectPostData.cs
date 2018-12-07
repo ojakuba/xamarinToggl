@@ -6,12 +6,21 @@ namespace TogglRestApi.Models.ProjectModels
 {
     public class ProjectPostData
     {
-        public ProjectToggl project { get; set; }
+        public ProjectPostDataData project { get; set; }
 
-        public ProjectPostData() { }
-        public ProjectPostData(ProjectToggl projectToggl)
+        public ProjectPostData(string name, int wid)
         {
-            project = projectToggl;
+            project = new ProjectPostDataData()
+            {
+                name = name,
+                wid = wid
+            };
+        }
+
+        public class ProjectPostDataData
+        {
+            public int wid { get; set; }
+            public string name { get; set; }
         }
     }
 }

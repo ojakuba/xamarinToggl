@@ -140,14 +140,14 @@ namespace TogglRestApi
             }
         }
 
-        public async Task<DataToggl<ProjectToggl>> CreateProject(ProjectToggl projectToggl)
+        public async Task<DataToggl<ProjectToggl>> CreateProject(string name, int wid)
         {
-            return await BasicAuthorizationRequest<DataToggl<ProjectToggl>, ProjectToggl>("https://www.toggl.com/api/v8/projects", projectToggl);
+            return await BasicAuthorizationRequest<DataToggl<ProjectToggl>, ProjectPostData>("https://www.toggl.com/api/v8/projects", new ProjectPostData(name, wid));
         }
 
-        public async Task<DataToggl<ProjectToggl>> UpdateProject(ProjectToggl projectToggl)
+        public async Task<DataToggl<ProjectToggl>> UpdateProject(string name, int wid)
         {
-            return await BasicAuthorizationRequest<DataToggl<ProjectToggl>, ProjectPostData>($"https://www.toggl.com/api/v8/projects/{projectToggl.id}", new ProjectPostData(projectToggl), "PUT");
+            return await BasicAuthorizationRequest<DataToggl<ProjectToggl>, ProjectPostData>($"https://www.toggl.com/api/v8/projects/{wid}", new ProjectPostData(name, wid), "PUT");
         }
 
         public async Task<List<WorkspaceToggl>> GetWorkspaces()

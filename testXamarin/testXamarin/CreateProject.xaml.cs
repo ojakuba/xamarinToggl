@@ -15,6 +15,7 @@ namespace testXamarin
 		public CreateProject ()
 		{
 			InitializeComponent ();
+            Context.ActualRunningTask.WorkspaceName = Context.Workspaces.FirstOrDefault(w=>w.id == Context.UserData.default_wid).name;
             BindingContext = Context.ActualRunningTask;
         }
 
@@ -47,7 +48,12 @@ namespace testXamarin
         {
             if (okBtn.IsEnabled)
             {
-                await Context.RestApi.CreateProject(new TogglRestApi.Models.ProjectToggl() { name = projectName.Text});//, wid = Context.ActualRunningTask.wid
+                var wid = Context.Workspaces.FirstOrDefault(w => w.name == Context.ActualRunningTask.WorkspaceName).id;
+                await Context.RestApi.CreateProject(projectName.Text, wid);
+                Context.ReloadWorkspaces();
+                Context.ReloadProjects();
+
+                Context.ActualRunningTask.ProjectName = projectName.Text;
                 await Navigation.PopAsync();
             }
         }
