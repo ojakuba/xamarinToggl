@@ -6,6 +6,7 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using TogglRestApi.Models;
+using TogglRestApi.Models.ProjectModels;
 
 namespace TogglRestApi
 {
@@ -146,7 +147,7 @@ namespace TogglRestApi
 
         public async Task<DataToggl<ProjectToggl>> UpdateProject(ProjectToggl projectToggl)
         {
-            return await BasicAuthorizationRequest<DataToggl<ProjectToggl>, ProjectToggl>($"https://www.toggl.com/api/v8/projects/{projectToggl.id}", projectToggl, "PUT");
+            return await BasicAuthorizationRequest<DataToggl<ProjectToggl>, ProjectPostData>($"https://www.toggl.com/api/v8/projects/{projectToggl.id}", new ProjectPostData(projectToggl), "PUT");
         }
 
         public async Task<List<WorkspaceToggl>> GetWorkspaces()

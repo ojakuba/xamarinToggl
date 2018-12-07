@@ -1,36 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="testXamarin.AddNewTask"
-             Title="New task">
+             x:Class="testXamarin.CreateProject"
+             Title="Create new project">
     <ContentPage.Content>
         <StackLayout>
+
+            <Editor 
+                x:Name="projectName" 
+                Text="Project name"
+                Focused="projectName_Focused"
+                Unfocused="projectName_Unfocused"
+                />
+            
             <ContentView 
                 Padding="5"
                 >
-
                 <Frame>
-                    <StackLayout x:Name="projectView">
+                    <StackLayout x:Name="workspaceView">
                         <StackLayout.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
                         </StackLayout.GestureRecognizers>
                         <Label
-                            Text="Project"
+                            Text="Workspace"
                             FontSize="22"
                             VerticalOptions="StartAndExpand"
                         />
                         <Label 
-                            x:Name="selectedProject"
+                            x:Name="selectedWorkspace"
                             FontSize="16"
                             VerticalOptions="CenterAndExpand"
-                            Text="{Binding ProjectName}"
+                            Text="{Binding WorkspaceName}"
                         />
                     </StackLayout>
                 </Frame>
             </ContentView>
-            <Button 
-                    x:Name="okBtn"
-                        />
+            
+            <Button x:Name="okBtn" Clicked="okBtn_Clicked" IsEnabled="False" Text="Create"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
