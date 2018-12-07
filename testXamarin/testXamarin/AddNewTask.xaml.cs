@@ -32,12 +32,18 @@ namespace testXamarin
         private async void okBtn_Clicked(object sender, EventArgs e)
         {
             var pid = Context.Projects.First(p => p.name == Context.ActualRunningTask.ProjectName).id;
-            await Context.RestApi.StartTimeEntry(new TogglRestApi.Models.StartTimeEntry() { created_with = "JakubaProject", description = "TODO", pid = pid });
+            await Context.RestApi.StartTimeEntry(new TogglRestApi.Models.StartTimeEntry() { created_with = "JakubaProject", description = taskDescription.Text, pid = pid });
+            await Navigation.PopToRootAsync();
         }
 
         private async void TapGestureRecognizer_Tapped_1(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new WorkspaceSelection());
+        }
+
+        private void taskDescription_Focused(object sender, FocusEventArgs e)
+        {
+            taskDescription.Text = "";
         }
     }
 }

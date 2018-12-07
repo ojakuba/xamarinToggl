@@ -5,6 +5,11 @@
              Title="New task">
     <ContentPage.Content>
         <StackLayout>
+            <Editor 
+                x:Name="taskDescription" 
+                Text="description"
+                Focused="taskDescription_Focused"
+                />
             <ContentView Padding="5">
                 <Frame>
                     <StackLayout x:Name="workspaceView">
