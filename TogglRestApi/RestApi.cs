@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
@@ -25,15 +26,13 @@ namespace TogglRestApi
 
             if (postData != null)
             {
-                System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
-                Byte[] byteArray = encoding.GetBytes(JsonConvert.SerializeObject(postData));
-
-                request.ContentLength = byteArray.Length;
                 request.ContentType = @"application/json";
-
-                using (Stream dataStream = request.GetRequestStream())
+                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
                 {
-                    dataStream.Write(byteArray, 0, byteArray.Length);
+                    string json = JsonConvert.SerializeObject(postData);
+
+                    streamWriter.Write(json);
+                    streamWriter.Flush();
                 }
 
             }
@@ -77,9 +76,9 @@ namespace TogglRestApi
             return await BasicAuthorizationRequest<TimeEntries, TimeEntries>("https://www.toggl.com/api/v8/time_entries/current", method: "GET");
         }
 
-        public async Task<TimeEntries> StartTimeEntry(TimeEntries timeEntries)
+        public async Task<TimeEntries> StartTimeEntry(StartTimeEntry timeEntries)
         {
-            return await BasicAuthorizationRequest<TimeEntries, TimeEntries>("https://www.toggl.com/api/v8/time_entries/start", timeEntries);
+            return await BasicAuthorizationRequest<TimeEntries, TimeEntryPostData>("https://www.toggl.com/api/v8/time_entries/start", new TimeEntryPostData(timeEntries));
         }
 
         public async Task<DataToggl<TimeEntries>> StopTimeEntry(int id)
@@ -114,8 +113,8 @@ namespace TogglRestApi
             var request = (HttpWebRequest)WebRequest.Create("https://www.toggl.com/api/v8/signups");
             request.Method = "POST";
 
-                request.ContentType = @"application/json";
 
+            request.ContentType = @"application/json";
             using (var streamWriter = new StreamWriter(request.GetRequestStream()))
             {
                 string json = JsonConvert.SerializeObject(signUpData); 
@@ -150,5 +149,9 @@ namespace TogglRestApi
             return await BasicAuthorizationRequest<DataToggl<ProjectToggl>, ProjectToggl>($"https://www.toggl.com/api/v8/projects/{projectToggl.id}", projectToggl, "PUT");
         }
 
+        public async Task<List<WorkspaceToggl>> GetWorkspaces()
+        {
+            return await BasicAuthorizationRequest<List<WorkspaceToggl>, ProjectToggl>($"https://www.toggl.com/api/v8/workspaces", method: "GET");
+        }
     }
 }
