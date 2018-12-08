@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using testXamarin.Models;
 using TogglRestApi;
@@ -6,7 +9,7 @@ using TogglRestApi.Models;
 
 namespace testXamarin.Store
 {
-    public static class Context
+    public static class Context 
     {
         public static RestApi RestApi { get; set; }
         public static UserDataToggl UserData { get; set; }
@@ -33,7 +36,24 @@ namespace testXamarin.Store
 
         public static async Task UpdateRunningTask()
         {
+            UpdateWorkspaces();
+            UpdateProjects();
             RunningTask = (await RestApi.GetCurrentTimeEntries()).data;
+            if(RunningTask == default(TimeEntries))
+            {
+                SelectedTaskData = new TaskPresentationLayout();
+                return;
+            }
+            var startTime = DateTime.Parse(RunningTask.start, null, DateTimeStyles.RoundtripKind);
+            var projectName = RunningTask.pid ==0 ? default(string) : Projects.FirstOrDefault(p => p.id == RunningTask.pid).name;
+
+            SelectedTaskData = new TaskPresentationLayout()
+            {
+                Description = RunningTask.description,
+                ProjectName = projectName,
+                WorkspaceName = Workspaces.FirstOrDefault(w => w.id == RunningTask.wid).name,
+                StartTime = startTime
+            };
         }
     }
 }

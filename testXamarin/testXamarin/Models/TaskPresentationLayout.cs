@@ -8,7 +8,8 @@ namespace testXamarin.Models
 {
     public class TaskPresentationLayout: INotifyPropertyChanged
     {
-        private string _workspace, _project;
+        private string _workspace, _project, _description;
+        private DateTime _startTime;
         public string WorkspaceName
         {
             get
@@ -38,6 +39,44 @@ namespace testXamarin.Models
                 }
             }
         }
+        public string Description
+        {
+            get
+            {
+                return _description;
+            }
+            set
+            {
+                if (_description != value)
+                {
+                    _description = value;
+                    OnPropertyChanged("Description");
+                }
+            }
+        }
+        public DateTime StartTime
+        {
+            get
+            {
+                return _startTime;
+            }
+            set
+            {
+                if (_startTime != value)
+                {
+                    _startTime = value;
+                    OnPropertyChanged("StartTime");
+                    OnPropertyChanged("IsRunning");
+                }
+            }
+        }
+        public bool IsRunning
+        {
+            get
+            {
+                return _startTime != default(DateTime);
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -50,5 +89,12 @@ namespace testXamarin.Models
             }
         }
 
+        public void Reset()
+        {
+            WorkspaceName = default(string);
+            ProjectName = default(string);
+            Description = default(string);
+            StartTime = default(DateTime);
+        }
     }
 }

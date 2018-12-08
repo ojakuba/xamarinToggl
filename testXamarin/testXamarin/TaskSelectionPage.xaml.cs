@@ -22,20 +22,20 @@ namespace testXamarin
 
         private async void myListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            if (((string)myListView.SelectedItem) == "New")
-            {
-                await Navigation.PushAsync(new AddNewTask());
-            }
-            else
-            {
-                await Context.RestApi.StartTimeEntry(
-                    new TogglRestApi.Models.StartTimeEntry()
+            //if (((string)myListView.SelectedItem) == "New")
+            //{
+            //    await Navigation.PushAsync(new AddNewTask());
+            //}
+            //else
+            //{
+            await Context.RestApi.StartTimeEntry(
+                new TogglRestApi.Models.StartTimeEntry()
                     {
                         created_with = "JakubaApplication",
                         description = (string)myListView.SelectedItem,
-                        pid = Context.TimeEntries.Single(t => t.description == (string)myListView.SelectedItem).pid
+                        pid = Context.TimeEntries.First(t => t.description == (string)myListView.SelectedItem).pid
                     });
-            }
+            
         }
 
     }

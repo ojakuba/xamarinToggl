@@ -6,7 +6,7 @@
         <StackLayout>
             <Button 
                 BackgroundColor="DarkGreen" 
-                Text="Start" 
+                Text="Start tracking" 
                 Clicked="Start_Clicked" 
                 AutomationId="StartBtn"  
                 HorizontalOptions="FillAndExpand"
@@ -19,8 +19,31 @@
                 Clicked="Stop_Clicked"
                 AutomationId="StopBtn"
                 HorizontalOptions="FillAndExpand"
+                IsEnabled="{Binding IsRunning}"
             />
-            
+
+            <ContentView 
+                Padding="5"
+                VerticalOptions="EndAndExpand"
+                IsVisible="{Binding IsRunning}"
+                
+                >
+                <Frame>
+                    <StackLayout x:Name="runningTask">
+                        <Label
+                            Text="Actual running task"
+                            FontSize="22"
+                            VerticalOptions="StartAndExpand"
+                        />
+                        <Label 
+                            x:Name="runningTaskDescription"
+                            FontSize="16"
+                            VerticalOptions="CenterAndExpand"
+                            Text="{Binding Description}"
+                        />
+                    </StackLayout>
+                </Frame>
+            </ContentView>
             
         </StackLayout>
     </ContentPage.Content>
