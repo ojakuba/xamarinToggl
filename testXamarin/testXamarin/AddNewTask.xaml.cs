@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using testXamarin.Store;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -13,11 +14,9 @@ namespace testXamarin
 		{
             Context.UpdateWorkspaces();
             Context.UpdateProjects();
-            Context.SelectedTaskData = new Models.TaskPresentationLayout();
-            Context.SelectedTaskData.ProjectName = Context.Projects.FirstOrDefault().name;
-            Context.SelectedTaskData.WorkspaceName = Context.Workspaces.FirstOrDefault(w=>w.id == Context.UserData.default_wid).name;
-            BindingContext = Context.SelectedTaskData;
-            
+            Context.ActualRunningTaskData.ProjectName = Context.Projects.FirstOrDefault().name;
+            Context.ActualRunningTaskData.WorkspaceName = Context.Workspaces.FirstOrDefault(w=>w.id == Context.UserData.default_wid).name;
+            BindingContext = Context.ActualRunningTaskData;
             InitializeComponent ();
         }
 
@@ -28,7 +27,7 @@ namespace testXamarin
 
         private async void okBtn_Clicked(object sender, EventArgs e)
         {
-            var pid = Context.Projects.First(p => p.name == Context.SelectedTaskData.ProjectName).id;
+            var pid = Context.Projects.First(p => p.name == Context.ActualRunningTaskData.ProjectName).id;
             await Context.RestApi.StartTimeEntry(new TogglRestApi.Models.StartTimeEntry() { created_with = "JakubaProject", description = taskDescription.Text, pid = pid });
             await Navigation.PopToRootAsync();
         }
@@ -42,5 +41,6 @@ namespace testXamarin
         {
             taskDescription.Text = "";
         }
+        
     }
 }

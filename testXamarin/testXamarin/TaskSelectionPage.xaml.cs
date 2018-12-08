@@ -22,12 +22,6 @@ namespace testXamarin
 
         private async void myListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            //if (((string)myListView.SelectedItem) == "New")
-            //{
-            //    await Navigation.PushAsync(new AddNewTask());
-            //}
-            //else
-            //{
             var selectedTask = await Context.RestApi.StartTimeEntry(
                 new TogglRestApi.Models.StartTimeEntry()
                     {
@@ -40,5 +34,9 @@ namespace testXamarin
             await Navigation.PopToRootAsync();
         }
 
+        private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new AddNewTask());
+        }
     }
 }

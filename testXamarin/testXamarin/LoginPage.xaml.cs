@@ -40,7 +40,7 @@ namespace testXamarin
                     };
                 }
             }
-            catch //(Exception exception)
+            catch (Exception exception)
             {
                 await DisplayAlert("Exception", "Login failed", "OK");
             }

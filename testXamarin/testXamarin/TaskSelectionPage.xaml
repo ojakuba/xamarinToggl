@@ -4,6 +4,22 @@
              x:Class="testXamarin.TaskSelectionPage" Title="Select task">
     <ContentPage.Content>
         <StackLayout>
+            <ContentView 
+                Padding="5"
+                >
+                <Frame>
+                    <StackLayout x:Name="newTask">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                        </StackLayout.GestureRecognizers>
+                        <Label
+                            Text="Create NEW"
+                            VerticalOptions="StartAndExpand"
+                        />
+                    </StackLayout>
+                </Frame>
+            </ContentView>
+            
             <ListView 
                 x:Name="myListView"
                 AutomationId="ListView"

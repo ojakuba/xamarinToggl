@@ -15,8 +15,9 @@ namespace testXamarin
 		public Stopwatch ()
 		{
             Context.UpdateRunningTask();
+            this.Appearing += (o, e) => { Context.UpdateRunningTask(); };
             InitializeComponent();
-            BindingContext = Context.SelectedTaskData;
+            BindingContext = Context.ActualRunningTaskData;
 		}
 
         private async void Start_Clicked(object sender, EventArgs e)
@@ -26,8 +27,10 @@ namespace testXamarin
 
         private async void Stop_Clicked(object sender, EventArgs e)
         {
-            await Context.RestApi.StopTimeEntry(Context.RunningTask.id);
-            Context.SelectedTaskData.Reset();
+            Context.UpdateRunningTask();
+            if(Context.ActualRunningTaskData.IsRunning)
+                await Context.RestApi.StopTimeEntry(Context.RunningTask.id);
+            Context.ActualRunningTaskData.Update();
         }
     }
 }

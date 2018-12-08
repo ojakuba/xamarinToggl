@@ -13,7 +13,7 @@ namespace testXamarin.Store
     {
         public static RestApi RestApi { get; set; }
         public static UserDataToggl UserData { get; set; }
-        public static TaskPresentationLayout SelectedTaskData { get; set; }
+        public static TaskPresentationLayout ActualRunningTaskData { get; set; }
         public static List<WorkspaceToggl> Workspaces { get; set; }
         public static List<ProjectToggl> Projects { get; set; }
         public static List<TimeEntries> TimeEntries { get; set; }
@@ -36,9 +36,9 @@ namespace testXamarin.Store
 
         public static async Task UpdateRunningTask()
         {
-            if(SelectedTaskData == default(TaskPresentationLayout))
+            if(ActualRunningTaskData == default(TaskPresentationLayout))
             {
-                SelectedTaskData = new TaskPresentationLayout();
+                ActualRunningTaskData = new TaskPresentationLayout();
             }
 
             UpdateWorkspaces();
@@ -47,7 +47,7 @@ namespace testXamarin.Store
 
             if(RunningTask == default(TimeEntries))
             {
-                SelectedTaskData.Reset();
+                ActualRunningTaskData.Update();
                 return;
             }
 
@@ -55,7 +55,7 @@ namespace testXamarin.Store
             var projectName = RunningTask.pid ==0 ? default(string) : Projects.FirstOrDefault(p => p.id == RunningTask.pid).name;
             var workspaceName = Workspaces.FirstOrDefault(w => w.id == RunningTask.wid).name;
 
-            SelectedTaskData.Update(
+            ActualRunningTaskData.Update(
                workspaceName,
                 projectName, 
                 RunningTask.description,

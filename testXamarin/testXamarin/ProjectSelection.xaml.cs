@@ -28,8 +28,7 @@ namespace testXamarin
             }
             else
             {
-                Context.SelectedTaskData.ProjectName = (string)projectList.SelectedItem;
-                //Context.ActualRunningTask.pid = Context.Projects.FirstOrDefault(p => p.name == Context.ActualRunningTask.ProjectName).id;
+                Context.ActualRunningTaskData.ProjectName = (string)projectList.SelectedItem;
             }
             Navigation.RemovePage(this);
         }

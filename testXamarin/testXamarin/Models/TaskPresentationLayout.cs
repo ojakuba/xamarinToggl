@@ -89,11 +89,6 @@ namespace testXamarin.Models
             }
         }
 
-        public void Reset()
-        {
-            Update();
-        }
-
         public void Update(string workspaceName= default(string), string projectName = default(string), string description = default(string), DateTime startTime = default(DateTime))
         {
             WorkspaceName = workspaceName;

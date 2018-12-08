@@ -15,8 +15,8 @@ namespace testXamarin
 		public CreateProject ()
 		{
 			InitializeComponent ();
-            Context.SelectedTaskData.WorkspaceName = Context.Workspaces.FirstOrDefault(w=>w.id == Context.UserData.default_wid).name;
-            BindingContext = Context.SelectedTaskData;
+            Context.ActualRunningTaskData.WorkspaceName = Context.Workspaces.FirstOrDefault(w=>w.id == Context.UserData.default_wid).name;
+            BindingContext = Context.ActualRunningTaskData;
         }
 
         private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
@@ -48,12 +48,12 @@ namespace testXamarin
         {
             if (okBtn.IsEnabled)
             {
-                var wid = Context.Workspaces.FirstOrDefault(w => w.name == Context.SelectedTaskData.WorkspaceName).id;
+                var wid = Context.Workspaces.FirstOrDefault(w => w.name == Context.ActualRunningTaskData.WorkspaceName).id;
                 await Context.RestApi.CreateProject(projectName.Text, wid);
                 Context.UpdateWorkspaces();
                 Context.UpdateProjects();
 
-                Context.SelectedTaskData.ProjectName = projectName.Text;
+                Context.ActualRunningTaskData.ProjectName = projectName.Text;
                 await Navigation.PopAsync();
             }
         }
