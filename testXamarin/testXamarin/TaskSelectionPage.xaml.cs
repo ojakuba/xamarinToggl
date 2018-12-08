@@ -28,14 +28,16 @@ namespace testXamarin
             //}
             //else
             //{
-            await Context.RestApi.StartTimeEntry(
+            var selectedTask = await Context.RestApi.StartTimeEntry(
                 new TogglRestApi.Models.StartTimeEntry()
                     {
                         created_with = "JakubaApplication",
                         description = (string)myListView.SelectedItem,
                         pid = Context.TimeEntries.First(t => t.description == (string)myListView.SelectedItem).pid
                     });
-            
+
+            await Context.UpdateRunningTask();
+            await Navigation.PopToRootAsync();
         }
 
     }

@@ -37,9 +37,33 @@
                         />
                         <Label 
                             x:Name="runningTaskDescription"
-                            FontSize="16"
+                            FontSize="18"
                             VerticalOptions="CenterAndExpand"
                             Text="{Binding Description}"
+                        />
+                        
+                        <Label 
+                            FontSize="20"
+                            VerticalOptions="CenterAndExpand"
+                            Text="Started"
+                        />
+                        <Label 
+                            x:Name="runningTaskStart"
+                            FontSize="16"
+                            VerticalOptions="CenterAndExpand"
+                            Text="{Binding StartTime}"
+                        />
+
+                        <Label 
+                            FontSize="20"
+                            VerticalOptions="CenterAndExpand"
+                            Text="Project"
+                        />
+                        <Label 
+                            x:Name="runningTaskProjectName"
+                            FontSize="16"
+                            VerticalOptions="CenterAndExpand"
+                            Text="{Binding ProjectName}"
                         />
                     </StackLayout>
                 </Frame>
