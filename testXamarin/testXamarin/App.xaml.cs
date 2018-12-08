@@ -13,17 +13,17 @@ namespace testXamarin
             Context.RestApi = new TogglRestApi.RestApi();
             InitializeComponent();
 
-            var navigationPageTracking = new NavigationPage(new Stopwatch());
-            navigationPageTracking.Title = "Tracking";
-            //navigationPageTracking.Icon=
+            //var navigationPageTracking = new NavigationPage(new Stopwatch());
+            //navigationPageTracking.Title = "Tracking";
+            ////navigationPageTracking.Icon=
 
-            MainPage = new TabbedPage {
-                Children = {
-                    navigationPageTracking,
-                    new History(),
-                    new User()            
-                }                
-            };
+            //MainPage = new TabbedPage {
+            //    Children = {
+            //        navigationPageTracking,
+            //        new History(),
+            //        new User()            
+            //    }                
+            //};
         }
 
         protected override void OnStart()

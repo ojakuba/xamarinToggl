@@ -11,15 +11,17 @@
                 AutomationId="StartBtn"  
                 HorizontalOptions="FillAndExpand"
             />
-            
+
             <Button 
+                x:Name="stopBtn"
                 BackgroundColor="DarkRed" 
                 Text="Stop" 
                 Clicked="Stop_Clicked"
                 AutomationId="StopBtn"
                 HorizontalOptions="FillAndExpand"
             />
-
+            
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

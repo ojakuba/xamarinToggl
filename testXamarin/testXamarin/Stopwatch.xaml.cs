@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using testXamarin.Store;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -14,7 +14,9 @@ namespace testXamarin
 	{
 		public Stopwatch ()
 		{
-			InitializeComponent ();
+            InitializeComponent();
+            BindingContext = Context.RunningTask;
+            UpdateRunningTask();
 		}
 
         private async void Start_Clicked(object sender, EventArgs e)
@@ -22,9 +24,15 @@ namespace testXamarin
             await Navigation.PushAsync(new TaskSelectionPage());
         }
 
-        private void Stop_Clicked(object sender, EventArgs e)
+        private async void Stop_Clicked(object sender, EventArgs e)
         {
-
+            await Context.RestApi.StopTimeEntry(Context.RunningTask.id);
+            UpdateRunningTask();
+        }
+        private void UpdateRunningTask()
+        {
+            Context.UpdateRunningTask().Wait();
+            stopBtn.IsEnabled = Context.RunningTask != null;
         }
     }
 }

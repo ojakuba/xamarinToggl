@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using testXamarin.Models;
 using TogglRestApi;
 using TogglRestApi.Models;
@@ -13,6 +14,7 @@ namespace testXamarin.Store
         public static List<WorkspaceToggl> Workspaces { get; set; }
         public static List<ProjectToggl> Projects { get; set; }
         public static List<TimeEntries> TimeEntries { get; set; }
+        public static TimeEntries RunningTask { get; set; }
 
         public static async void UpdateProjects()
         {
@@ -29,6 +31,9 @@ namespace testXamarin.Store
             TimeEntries = await RestApi.GetAllTimeEntries();
         }
 
-        
+        public static async Task UpdateRunningTask()
+        {
+            RunningTask = (await RestApi.GetCurrentTimeEntries()).data;
+        }
     }
 }

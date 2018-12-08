@@ -40,7 +40,7 @@ namespace TogglRestApi
 
             try
             {
-                var httpResponse = (HttpWebResponse) request.GetResponseAsync().Result;
+                var httpResponse = (HttpWebResponse) (request.GetResponseAsync().Result);
                 using (var sr = httpResponse.GetResponseStream())
                 {
                     var responseJson = new StreamReader(sr).ReadToEnd();
@@ -72,9 +72,9 @@ namespace TogglRestApi
             return await BasicAuthorizationRequest<TimeEntries, TimeEntries>("https://www.toggl.com/api/v9/time_entries", timeEntries);
         }
 
-        public async Task<TimeEntries> CurrentTimeEntries()
+        public async Task<DataToggl<TimeEntries>> GetCurrentTimeEntries()
         {
-            return await BasicAuthorizationRequest<TimeEntries, TimeEntries>("https://www.toggl.com/api/v8/time_entries/current", method: "GET");
+            return await BasicAuthorizationRequest<DataToggl<TimeEntries>, TimeEntries>("https://www.toggl.com/api/v8/time_entries/current", method: "GET");
         }
 
         public async Task<TimeEntries> StartTimeEntry(StartTimeEntry timeEntries)
@@ -84,7 +84,7 @@ namespace TogglRestApi
 
         public async Task<DataToggl<TimeEntries>> StopTimeEntry(int id)
         {
-            return await BasicAuthorizationRequest<DataToggl<TimeEntries>, TimeEntries>($"https://www.toggl.com/api/v8/time_entries/{id}/stop", method: "PUT");
+            return await BasicAuthorizationRequest<DataToggl<TimeEntries>, TimeEntries>($"https://www.toggl.com/api/v8/time_entries/{id}/stop", method: "GET");
         }
 
         public async Task<DataToggl<TimeEntries>> GetTimeEntry(int id)
