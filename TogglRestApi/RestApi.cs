@@ -159,5 +159,10 @@ namespace TogglRestApi
         {
             return await BasicAuthorizationRequest<List<ProjectToggl>, ProjectToggl>($"https://www.toggl.com/api/v8/workspaces/{workspaceId}/projects", method: "GET");
         }
+
+        public async Task<List<TimeEntries>> GetAllTimeEntries()
+        {
+            return await BasicAuthorizationRequest<List<TimeEntries>, ProjectToggl>($"https://www.toggl.com/api/v8/time_entries", method: "GET");
+        }
     }
 }

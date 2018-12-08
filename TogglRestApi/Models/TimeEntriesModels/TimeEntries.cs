@@ -5,7 +5,7 @@ namespace TogglRestApi.Models
 {
     public class TimeEntries
     {
-        public int? id { get; set; }
+        public int id { get; set; }
 
         /// <summary>
         /// The name of your client app
@@ -14,12 +14,12 @@ namespace TogglRestApi.Models
         /// <summary>
         /// Project ID
         /// </summary>
-        public int? pid { get; set; }
+        public int pid { get; set; }
         /// <summary>
         /// Task ID
         /// </summary>
         public int? tid { get; set; }
-        public string decsription { get; set; }
+        public string description { get; set; }
         public IEnumerable<string> tags { get; set; }
         /// <summary>
         ///  Time entry duration in seconds. 
@@ -42,12 +42,12 @@ namespace TogglRestApi.Models
 
         public TimeEntries() { }
 
-        public TimeEntries(string description, DateTime startTask, DateTime stopTask = default(DateTime),
-            int? workspaceID = null, int? taskID = null, int? projectID = null,
+        public TimeEntries(string description, int projectID, DateTime startTask, DateTime stopTask = default(DateTime),
+            int? workspaceID = null, int? taskID = null, 
             IEnumerable<string> tagEnumerable = default(IEnumerable<string>))
         {
             created_with = "Snowball";
-            this.decsription = description;
+            this.description = description;
             wid = workspaceID;
             pid = projectID;
             tid = taskID;

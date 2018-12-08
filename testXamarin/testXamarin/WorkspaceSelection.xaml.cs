@@ -16,8 +16,7 @@ namespace testXamarin
 
         private void workspaceList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            Context.ActualRunningTask.WorkspaceName = (string)workspaceList.SelectedItem;
-            //Context.ActualRunningTask.wid = Context.Workspaces.FirstOrDefault(p => p.name == Context.ActualRunningTask.WorkspaceName).id;
+            Context.SelectedTaskData.WorkspaceName = (string)workspaceList.SelectedItem;
             Navigation.RemovePage(this);
         }
     }

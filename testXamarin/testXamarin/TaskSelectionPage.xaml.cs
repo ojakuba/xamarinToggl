@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using testXamarin.Store;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,12 +12,11 @@ namespace testXamarin
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TaskSelectionPage : ContentPage
     {
-        private DateTime _dateTime;
         public TaskSelectionPage()
         {
+            Context.UpdateTimeEntries();
             InitializeComponent();
-            _dateTime = DateTime.Now;
-            myListView.ItemsSource = new List<string>() { "New", "Blank", "Last" } ;
+            myListView.ItemsSource = Context.TimeEntries.Select(t=>t.description).Distinct();
 
         }
 
@@ -25,11 +24,17 @@ namespace testXamarin
         {
             if (((string)myListView.SelectedItem) == "New")
             {
-                await Navigation.PushAsync(new AddNewTask(_dateTime));
+                await Navigation.PushAsync(new AddNewTask());
             }
             else
             {
-
+                await Context.RestApi.StartTimeEntry(
+                    new TogglRestApi.Models.StartTimeEntry()
+                    {
+                        created_with = "JakubaApplication",
+                        description = (string)myListView.SelectedItem,
+                        pid = Context.TimeEntries.Single(t => t.description == (string)myListView.SelectedItem).pid
+                    });
             }
         }
 

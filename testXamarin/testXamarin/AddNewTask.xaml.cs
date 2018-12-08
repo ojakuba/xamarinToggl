@@ -9,17 +9,14 @@ namespace testXamarin
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class AddNewTask : ContentPage
 	{
-        private DateTime _dateTime;
-        
-        public AddNewTask (DateTime dateTime)
+        public AddNewTask ()
 		{
-            _dateTime = dateTime;
-            Context.ReloadWorkspaces();
-            Context.ReloadProjects();
-            Context.ActualRunningTask = new Models.TaskPresentationLayout();
-            Context.ActualRunningTask.ProjectName = Context.Projects.FirstOrDefault().name;
-            Context.ActualRunningTask.WorkspaceName = Context.Workspaces.FirstOrDefault(w=>w.id == Context.UserData.default_wid).name;
-            BindingContext = Context.ActualRunningTask;
+            Context.UpdateWorkspaces();
+            Context.UpdateProjects();
+            Context.SelectedTaskData = new Models.TaskPresentationLayout();
+            Context.SelectedTaskData.ProjectName = Context.Projects.FirstOrDefault().name;
+            Context.SelectedTaskData.WorkspaceName = Context.Workspaces.FirstOrDefault(w=>w.id == Context.UserData.default_wid).name;
+            BindingContext = Context.SelectedTaskData;
             
             InitializeComponent ();
         }
@@ -31,7 +28,7 @@ namespace testXamarin
 
         private async void okBtn_Clicked(object sender, EventArgs e)
         {
-            var pid = Context.Projects.First(p => p.name == Context.ActualRunningTask.ProjectName).id;
+            var pid = Context.Projects.First(p => p.name == Context.SelectedTaskData.ProjectName).id;
             await Context.RestApi.StartTimeEntry(new TogglRestApi.Models.StartTimeEntry() { created_with = "JakubaProject", description = taskDescription.Text, pid = pid });
             await Navigation.PopToRootAsync();
         }
