@@ -14,11 +14,10 @@ namespace testXamarin
 	{
 		public History ()
 		{
+            this.Appearing += (o, e) => { Context.UpdateHistory(); };
             Context.UpdateHistory();
             InitializeComponent ();
-            //BindingContext = Context.History;
             listView.ItemsSource = Context.History;
-            // listView.RowHeight = 
             listView.HasUnevenRows = true;
 		}
 	}

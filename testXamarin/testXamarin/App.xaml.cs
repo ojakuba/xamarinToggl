@@ -15,7 +15,6 @@ namespace testXamarin
 
             //var navigationPageTracking = new NavigationPage(new Stopwatch());
             //navigationPageTracking.Title = "Tracking";
-            ////navigationPageTracking.Icon=
 
             //MainPage = new TabbedPage {
             //    Children = {
