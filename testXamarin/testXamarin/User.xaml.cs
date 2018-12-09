@@ -16,6 +16,7 @@ namespace testXamarin
 		public User (App app)
 		{
             _app = app;
+            Context.UpdateUserPresentationData();
             this.Appearing += (o, e) => { Context.UpdateUserPresentationData(); };
             InitializeComponent ();
             BindingContext = Context.UserPresentationData;
