@@ -35,7 +35,7 @@ namespace testXamarin
                         Children = {
                             navigationPageTracking,
                             new History(),
-                            new User()
+                            new User(_app)
                         }
                     };
                 }

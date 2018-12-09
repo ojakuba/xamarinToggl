@@ -7,6 +7,7 @@ using System.Net;
 using System.Threading.Tasks;
 using TogglRestApi.Models;
 using TogglRestApi.Models.ProjectModels;
+using TogglRestApi.Models.UserDataModels;
 
 namespace TogglRestApi
 {
@@ -67,6 +68,11 @@ namespace TogglRestApi
             return response;
         }
 
+        public async Task<DataToggl<UserDataToggl>> GetCurrentUserData()
+        {
+            return await BasicAuthorizationRequest<DataToggl<UserDataToggl>, UserDataToggl>("https://www.toggl.com/api/v8/me", method:"GET");
+        }
+
         public async Task<TimeEntries> CreateTimeEntries(TimeEntries timeEntries)
         {
             return await BasicAuthorizationRequest<TimeEntries, TimeEntries>("https://www.toggl.com/api/v9/time_entries", timeEntries);
@@ -105,6 +111,16 @@ namespace TogglRestApi
         public async Task<DataToggl<UserDataToggl>> UpdateUserData(EditableUserData editableUserData)
         {
             var response = await BasicAuthorizationRequest<DataToggl<UserDataToggl>, EditableUserData>("https://www.toggl.com/api/v8/me", editableUserData, "PUT");
+            userRequestInfo = response.data;
+            return response;
+        }
+
+        public async Task<DataToggl<UserDataToggl>> UpdateUserData(string fullName, string email)
+        {
+            var response = await BasicAuthorizationRequest<DataToggl<UserDataToggl>, UpdateUserData>(
+                "https://www.toggl.com/api/v8/me", 
+                new Models.UserDataModels.UpdateUserData(fullName,email), 
+                "PUT");
             userRequestInfo = response.data;
             return response;
         }
@@ -163,6 +179,11 @@ namespace TogglRestApi
         public async Task<List<TimeEntries>> GetAllTimeEntries()
         {
             return await BasicAuthorizationRequest<List<TimeEntries>, ProjectToggl>($"https://www.toggl.com/api/v8/time_entries", method: "GET");
+        }
+
+        public async Task Logout()
+        {
+            await BasicAuthorizationRequest<ProjectToggl, ProjectToggl>($"https://www.toggl.com/api/v8/sessions", method: "DELETE");
         }
     }
 }

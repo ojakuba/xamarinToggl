@@ -13,6 +13,7 @@ namespace testXamarin.Store
     {
         public static RestApi RestApi { get; set; }
         public static UserDataToggl UserData { get; set; }
+        public static UserPresentationData UserPresentationData { get; set; }
         public static TaskPresentationLayout ActualRunningTaskData { get; set; }
         public static List<WorkspaceToggl> Workspaces { get; set; }
         public static List<ProjectToggl> Projects { get; set; }
@@ -96,6 +97,36 @@ namespace testXamarin.Store
                     }
                 }
             }
+        }
+
+        public static async void UpdateUserPresentationData()
+        {
+            if(UserPresentationData == default(UserPresentationData))
+            {
+                UserPresentationData = new UserPresentationData();
+            }
+            UserData = (await RestApi.GetCurrentUserData()).data;
+            UserPresentationData.Update(UserData.fullname, UserData.email);
+        }
+
+        public static async void UpdateUserDataToServer()
+        {
+            UserData = (await RestApi.UpdateUserData(UserPresentationData.FullName,UserPresentationData.Email)).data;
+            UserPresentationData.Update(UserData.fullname, UserData.email);
+        }
+
+        public static async void Logout()
+        {
+            await RestApi.Logout();
+            RestApi = new RestApi();
+            UserData = new UserDataToggl();
+            UserPresentationData = new UserPresentationData();
+            ActualRunningTaskData = new TaskPresentationLayout();
+            Workspaces = new List<WorkspaceToggl>();
+            Projects = new List<ProjectToggl>();
+            TimeEntries = new List<TimeEntries>();
+            RunningTask = new TimeEntries();
+            History = new List<HistoryRowPresentationData>();
         }
     }
 }

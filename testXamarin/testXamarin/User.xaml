@@ -5,9 +5,43 @@
              Title="User">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="User"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            
+            <ContentView Padding="5">
+                <Frame>
+                    <StackLayout x:Name="fullNameFrame">
+                        <Label
+                            Text="Full name"
+                            FontSize="22"
+                            VerticalOptions="StartAndExpand"
+                        />
+                        <Editor 
+                            Text="{Binding FullName}"
+                            FontSize="18"
+                            VerticalOptions="StartAndExpand"
+                            />      
+                    </StackLayout>
+                </Frame>
+            </ContentView>
+
+            <ContentView Padding="5">
+                <Frame>
+                    <StackLayout x:Name="emailFrame">
+                        <Label
+                            Text="Email"
+                            FontSize="22"
+                            VerticalOptions="StartAndExpand"
+                        />
+                        <Editor 
+                            Text="{Binding Email}"
+                            FontSize="18"
+                            VerticalOptions="StartAndExpand"
+                            />
+                    </StackLayout>
+                </Frame>
+            </ContentView>
+
+            <Button x:Name="updateBtn" Text="Update" Clicked="updateBtn_Clicked"/>
+            <Button x:Name="LogoutBtn" Text="Logout" Clicked="LogoutBtn_Clicked"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
