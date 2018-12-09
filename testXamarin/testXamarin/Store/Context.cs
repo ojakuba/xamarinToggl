@@ -18,7 +18,8 @@ namespace testXamarin.Store
         public static List<ProjectToggl> Projects { get; set; }
         public static List<TimeEntries> TimeEntries { get; set; }
         public static TimeEntries RunningTask { get; set; }
-        
+        public static List<HistoryRowPresentationData> History { get; set; }
+
         public static async void UpdateProjects()
         {
             Projects = await RestApi.GetWorkspaceProjects(UserData.default_wid);
@@ -60,6 +61,34 @@ namespace testXamarin.Store
                 projectName, 
                 RunningTask.description,
                 startTime);
+        }
+
+        public static async void UpdateHistory()
+        {
+            if(History == default(List<HistoryRowPresentationData>))
+            {
+                History = new List<HistoryRowPresentationData>();
+            }
+            UpdateWorkspaces();
+            UpdateProjects();
+            UpdateTimeEntries();
+            foreach(var item in TimeEntries)
+            {
+                if (!String.IsNullOrEmpty(item.stop))
+                {
+                    var from = DateTime.Parse(item.start, null, DateTimeStyles.RoundtripKind);
+                    var to = DateTime.Parse(item.stop, null, DateTimeStyles.RoundtripKind);
+                    var dur = to.Subtract(from);
+                    History.Add(new HistoryRowPresentationData()
+                    {
+                        Description = item.description,
+                        Project = RunningTask.pid == 0 ? default(string) : Projects.FirstOrDefault(p => p.id == RunningTask.pid).name,
+                        From = from,
+                        To = to,
+                        Duration = dur.ToString()
+                    });
+                }
+            }
         }
     }
 }

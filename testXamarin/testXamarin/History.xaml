@@ -5,9 +5,64 @@
              Title="History">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="History"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <ListView  x:Name="listView">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell >
+                            <StackLayout Orientation="Vertical"
+                                         VerticalOptions="FillAndExpand"
+                                         HorizontalOptions="FillAndExpand">
+                                <StackLayout Orientation="Horizontal"
+                                             VerticalOptions="FillAndExpand"
+                                         HorizontalOptions="FillAndExpand">
+                                    <Label Text="{Binding Description}"
+                                           FontAttributes="Bold"
+                                           FontSize="18"
+                                        HorizontalOptions="StartAndExpand"
+                                           />
+                                    <Label Text="{Binding Project}"
+                                           FontAttributes="Bold"
+                                           FontSize="16"
+                                        HorizontalOptions="EndAndExpand"
+                                           />
+                                </StackLayout>
+                                
+                                <StackLayout Orientation="Horizontal"
+                                             VerticalOptions="FillAndExpand"
+                                         HorizontalOptions="FillAndExpand">
+                                    <Label Text="From "
+                                           FontAttributes="Bold"
+                                        HorizontalOptions="StartAndExpand"
+                                           />
+                                    <Label Text="{Binding From}"
+                                        HorizontalOptions="StartAndExpand"
+                                           />
+                                    <Label Text="To "
+                                           FontAttributes="Bold"
+                                        HorizontalOptions="EndAndExpand"
+                                           />
+                                    <Label Text="{Binding To}"
+                                        HorizontalOptions="EndAndExpand"
+                                           />
+                                </StackLayout>
+                                
+                                <StackLayout Orientation="Horizontal"
+                                            VerticalOptions="FillAndExpand"
+                                         HorizontalOptions="FillAndExpand">
+                                    <Label Text="Duration: "
+                                           FontAttributes="Bold"
+                                        HorizontalOptions="Start"
+                                           />
+                                    <Label Text="{Binding Duration}"
+                                        HorizontalOptions="StartAndExpand"
+                                           />
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
