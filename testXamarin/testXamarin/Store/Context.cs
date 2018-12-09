@@ -76,17 +76,24 @@ namespace testXamarin.Store
             {
                 if (!String.IsNullOrEmpty(item.stop))
                 {
-                    var from = DateTime.Parse(item.start, null, DateTimeStyles.RoundtripKind);
-                    var to = DateTime.Parse(item.stop, null, DateTimeStyles.RoundtripKind);
-                    var dur = to.Subtract(from);
-                    History.Add(new HistoryRowPresentationData()
+                    try
                     {
-                        Description = item.description,
-                        Project = RunningTask.pid == 0 ? default(string) : Projects.FirstOrDefault(p => p.id == RunningTask.pid).name,
-                        From = from,
-                        To = to,
-                        Duration = dur.ToString()
-                    });
+                        var from = DateTime.Parse(item.start, null, DateTimeStyles.RoundtripKind);
+                        var to = DateTime.Parse(item.stop, null, DateTimeStyles.RoundtripKind);
+                        var dur = to.Subtract(from);
+                        History.Add(new HistoryRowPresentationData()
+                        {
+                            Description = item.description,
+                            Project = item.pid == 0 ? default(string) : Projects.FirstOrDefault(p => p.id == item.pid).name,
+                            From = from,
+                            To = to,
+                            Duration = dur.ToString()
+                        });
+                    }
+                    catch(Exception e)
+                    {
+
+                    }
                 }
             }
         }
